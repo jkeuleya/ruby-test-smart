@@ -6,11 +6,13 @@ module VisitParser
     visited_routes_hash = Hash.new(0)
 
     File.open(file).each do |line|
-      route = line[/^([^\s]+)/]
+      route = line.split(' ')[0]
 
       visited_routes_hash[route] += 1
     end
 
     visited_routes_hash.sort_by { |_k, v| -v }
+  rescue Errno::ENOENT
+    'Error ! File not found !'
   end
 end
