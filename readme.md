@@ -27,3 +27,10 @@ And finally, use the following command to run the script:
 ```
 $ ./parser.rb <log_file.log> <pretty_print>
 ```
+
+## Next steps & Improvments
+
+- Remove duplicated code (include specs)
+- Improve results' display
+- Improve matching of routes (presence of '/' or not for example)
+- Improve initial arguments verification

@@ -7,16 +7,39 @@ require_relative 'lib/unique_visit_parser'
 require_relative 'lib/pretty_print'
 
 # This module triggers the right script.
-module Parser
-  def self.perform_visit_parser(file, pretty_print)
+class Parser
+  attr_reader :file, :pretty_print
+
+  def initialize(file, pretty_print)
+    @file = file
+    @pretty_print = pretty_print
+  end
+
+  def perform_visit_parser
     visit_parser = VisitParser.perform(file)
 
-    if pretty_print
-      PrettyPrint.output(visit_parser)
-    else
-      puts visit_parser
-    end
+    return PrettyPrint.render(visit_parser, false) if pretty_print
+
+    visit_parser
+  end
+
+  def perform_unique_visit_parser
+    unique_visit_parser = UniqueVisitParser.perform(file)
+
+    return PrettyPrint.render(unique_visit_parser, true) if pretty_print
+
+    unique_visit_parser
   end
 end
 
-Parser.perform_visit_parser(ARGV[0], ARGV[1])
+parser = Parser.new(ARGV[0], ARGV[1])
+
+if ARGV[0]
+  puts 'Not unique visits results:'
+  puts parser.perform_visit_parser
+  puts "\n------------------------------------\n\n"
+  puts 'Unique visits results:'
+  puts parser.perform_unique_visit_parser if ARGV[0]
+else
+  puts 'Error ! File expected as argument !'
+end
