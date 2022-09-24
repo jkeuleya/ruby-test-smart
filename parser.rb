@@ -3,6 +3,7 @@
 # frozen_string_literal: true
 
 require_relative 'lib/visit_parser'
+require_relative 'lib/unique_visit_parser'
 require_relative 'lib/pretty_print'
 
 # This module triggers the right script.
